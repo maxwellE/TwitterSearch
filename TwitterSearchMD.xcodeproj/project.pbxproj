@@ -19,7 +19,7 @@
 		0DE2E623163CE44E0015ADC7 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DE2E621163CE44E0015ADC7 /* MainStoryboard_iPhone.storyboard */; };
 		0DE2E626163CE44E0015ADC7 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DE2E624163CE44E0015ADC7 /* MainStoryboard_iPad.storyboard */; };
 		0DE2E629163CE44E0015ADC7 /* TSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE2E628163CE44E0015ADC7 /* TSMasterViewController.m */; };
-		0DE2E62C163CE44E0015ADC7 /* TSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE2E62B163CE44E0015ADC7 /* TSDetailViewController.m */; };
+		0DE2E638163CECE70015ADC7 /* TSTweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE2E636163CECE70015ADC7 /* TSTweet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,8 +40,8 @@
 		0DE2E625163CE44E0015ADC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		0DE2E627163CE44E0015ADC7 /* TSMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSMasterViewController.h; sourceTree = "<group>"; };
 		0DE2E628163CE44E0015ADC7 /* TSMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSMasterViewController.m; sourceTree = "<group>"; };
-		0DE2E62A163CE44E0015ADC7 /* TSDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSDetailViewController.h; sourceTree = "<group>"; };
-		0DE2E62B163CE44E0015ADC7 /* TSDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSDetailViewController.m; sourceTree = "<group>"; };
+		0DE2E636163CECE70015ADC7 /* TSTweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTweet.m; sourceTree = "<group>"; };
+		0DE2E637163CECE70015ADC7 /* TSTweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTweet.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,13 +89,13 @@
 			isa = PBXGroup;
 			children = (
 				0DE2E618163CE44E0015ADC7 /* TSAppDelegate.h */,
+				0DE2E636163CECE70015ADC7 /* TSTweet.m */,
+				0DE2E637163CECE70015ADC7 /* TSTweet.h */,
 				0DE2E619163CE44E0015ADC7 /* TSAppDelegate.m */,
 				0DE2E621163CE44E0015ADC7 /* MainStoryboard_iPhone.storyboard */,
 				0DE2E624163CE44E0015ADC7 /* MainStoryboard_iPad.storyboard */,
 				0DE2E627163CE44E0015ADC7 /* TSMasterViewController.h */,
 				0DE2E628163CE44E0015ADC7 /* TSMasterViewController.m */,
-				0DE2E62A163CE44E0015ADC7 /* TSDetailViewController.h */,
-				0DE2E62B163CE44E0015ADC7 /* TSDetailViewController.m */,
 				0DE2E610163CE44E0015ADC7 /* Supporting Files */,
 			);
 			path = TwitterSearchMD;
@@ -186,7 +186,7 @@
 				0DE2E616163CE44E0015ADC7 /* main.m in Sources */,
 				0DE2E61A163CE44E0015ADC7 /* TSAppDelegate.m in Sources */,
 				0DE2E629163CE44E0015ADC7 /* TSMasterViewController.m in Sources */,
-				0DE2E62C163CE44E0015ADC7 /* TSDetailViewController.m in Sources */,
+				0DE2E638163CECE70015ADC7 /* TSTweet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

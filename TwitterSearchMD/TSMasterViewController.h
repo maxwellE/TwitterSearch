@@ -7,11 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class TSDetailViewController;
+#import "TSTweet.h"
 
 @interface TSMasterViewController : UITableViewController
+{
+    NSMutableArray *searchResults;
+    NSString *savedSearchTerm;
+    NSMutableData *data;
+}
+@property (nonatomic, retain) NSMutableArray *searchResults;
+@property (nonatomic, retain) NSMutableData *data;
+@property (nonatomic, copy) NSString *savedSearchTerm;
 
-@property (strong, nonatomic) TSDetailViewController *detailViewController;
+
+- (void)handleSearchForTerm:(NSString *)searchTerm;
++(NSString*)encodeURL:(NSString *)string;
+
 
 @end
