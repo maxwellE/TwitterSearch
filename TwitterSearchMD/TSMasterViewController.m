@@ -19,6 +19,7 @@
 @synthesize searchResults;
 @synthesize savedSearchTerm;
 @synthesize data;
+@synthesize last_page;
 
 +(NSString*)encodeURL:(NSString *)string{
     NSString *newString = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
@@ -30,6 +31,8 @@
     
     return @"";
 }
+
+
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller
 shouldReloadTableForSearchString:(NSString *)searchString
 {
@@ -85,9 +88,12 @@ shouldReloadTableForSearchString:(NSString *)searchString
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:nil error:nil];
-    // NSLog(@"First tweet text %@", [json allKeys]);
+    NSString *next_search = [[NSString alloc] initWithFormat:@"http://search.twitter.com/search.json%@",[json objectForKey:@"next_page"]];
+    [TSTweet setNextTwitterTweetLink:next_search];
+    self.last_page = [TSTweet getNextTwitterTweetLink];
     for (NSDictionary *single_tweet in [json objectForKey:@"results"]) {
         TSTweet *new_tweet = [[TSTweet alloc]initWithPosterContentAndProfileURL:[single_tweet objectForKey:@"from_user_name"] Content:[single_tweet objectForKey:@"text"] ProfileURL:[single_tweet objectForKey:@"profile_image_url"]];
         [self insertNewObject:new_tweet];
@@ -97,9 +103,10 @@ shouldReloadTableForSearchString:(NSString *)searchString
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The download could not complete - please make sure you're connected to either 3G/4G or Wi-Fi." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+    UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The request to Twitter could not complete - please make sure you're connected to either 3G/4G or Wi-Fi." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
     [errorView show];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
 }
 
 
@@ -122,6 +129,15 @@ shouldReloadTableForSearchString:(NSString *)searchString
     {
         [[[self searchDisplayController] searchBar] setText:[self savedSearchTerm]];
     }
+       self.last_page = [[NSString alloc]init];
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [refresh addTarget:self action:@selector(refreshView:)forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refresh;
+    [self.refreshControl addTarget:self
+                        action:@selector(refreshView:)
+                        forControlEvents:UIControlEventValueChanged];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -137,7 +153,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
     }
     [_objects insertObject:tweet atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Table View
@@ -206,4 +222,21 @@ shouldReloadTableForSearchString:(NSString *)searchString
 {
 
 }
+//##### INFINATE SCROLL
+ -(void)refreshView:(UIRefreshControl *)refresh {
+          refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pulling data from Twitter..."];
+         NSLog(@"REFRESH");
+         NSURL *url = [NSURL URLWithString:[TSTweet getNextTwitterTweetLink]];
+         NSURLRequest *request = [NSURLRequest requestWithURL:url];
+         [[NSURLConnection alloc] initWithRequest:request delegate:self];
+          NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+          [formatter setDateFormat:@"MMM d, h:mm a"];
+          NSString *lastUpdated = [NSString stringWithFormat:@"Last updated on %@",
+          [formatter stringFromDate:[NSDate date]]];
+          refresh.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
+          [refresh endRefreshing];
+         [self.tableView reloadData];
+         NSLog(@"DONE REFRESH");
+}
+//######################
 @end

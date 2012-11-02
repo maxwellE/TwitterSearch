@@ -7,12 +7,17 @@
 //
 
 #import "TSTweet.h"
-
+static NSString *nexturl;
 @implementation TSTweet
 @synthesize content;
 @synthesize poster;
 @synthesize profile_url;
-
++(NSString *)getNextTwitterTweetLink{
+    return nexturl;
+}
++(void)setNextTwitterTweetLink:(NSString *)link{
+    nexturl = link;
+}
 -(id)initWithPosterContentAndProfileURL:(NSString *)TweetPoster Content:(NSString *)TweetContent ProfileURL:(NSString*)profileURL{
     self  = [super init];
     if (self){

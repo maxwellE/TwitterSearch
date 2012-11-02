@@ -14,14 +14,14 @@
     NSMutableArray *searchResults;
     NSString *savedSearchTerm;
     NSMutableData *data;
+    NSString *last_page;
 }
 @property (nonatomic, retain) NSMutableArray *searchResults;
 @property (nonatomic, retain) NSMutableData *data;
 @property (nonatomic, copy) NSString *savedSearchTerm;
-
+@property (nonatomic, retain) NSString *last_page;
 
 - (void)handleSearchForTerm:(NSString *)searchTerm;
 +(NSString*)encodeURL:(NSString *)string;
-
 
 @end

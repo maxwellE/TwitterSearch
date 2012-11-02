@@ -18,7 +18,7 @@
 @property (retain) NSString *content;
 @property (retain) NSString *poster;
 @property (retain) NSString *profile_url;
-
-
++ (NSString *)getNextTwitterTweetLink;
++(void)setNextTwitterTweetLink:(NSString *)link;
 -(id)initWithPosterContentAndProfileURL:(NSString *)TweetPoster Content:(NSString *)TweetContent ProfileURL:(NSString*)profileURL;
 @end
