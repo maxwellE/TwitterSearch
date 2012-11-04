@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D6437081645D923008A745A /* TSCustomTweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D6437071645D923008A745A /* TSCustomTweetCell.m */; };
-		0D64370B1645DB02008A745A /* CustomTweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D64370A1645DB02008A745A /* CustomTweetCell.xib */; };
 		0DE2E60A163CE44E0015ADC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE2E609163CE44E0015ADC7 /* UIKit.framework */; };
 		0DE2E60C163CE44E0015ADC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE2E60B163CE44E0015ADC7 /* Foundation.framework */; };
 		0DE2E60E163CE44E0015ADC7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE2E60D163CE44E0015ADC7 /* CoreGraphics.framework */; };
@@ -25,9 +23,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0D6437061645D923008A745A /* TSCustomTweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCustomTweetCell.h; sourceTree = "<group>"; };
-		0D6437071645D923008A745A /* TSCustomTweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCustomTweetCell.m; sourceTree = "<group>"; };
-		0D64370A1645DB02008A745A /* CustomTweetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTweetCell.xib; sourceTree = "<group>"; };
 		0DE2E605163CE44E0015ADC7 /* TwitterSearchMD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterSearchMD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE2E609163CE44E0015ADC7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0DE2E60B163CE44E0015ADC7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -94,9 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				0DE2E618163CE44E0015ADC7 /* TSAppDelegate.h */,
-				0D6437061645D923008A745A /* TSCustomTweetCell.h */,
-				0D6437071645D923008A745A /* TSCustomTweetCell.m */,
-				0D64370A1645DB02008A745A /* CustomTweetCell.xib */,
 				0DE2E636163CECE70015ADC7 /* TSTweet.m */,
 				0DE2E637163CECE70015ADC7 /* TSTweet.h */,
 				0DE2E619163CE44E0015ADC7 /* TSAppDelegate.m */,
@@ -181,7 +173,6 @@
 				0DE2E620163CE44E0015ADC7 /* Default-568h@2x.png in Resources */,
 				0DE2E623163CE44E0015ADC7 /* MainStoryboard_iPhone.storyboard in Resources */,
 				0DE2E626163CE44E0015ADC7 /* MainStoryboard_iPad.storyboard in Resources */,
-				0D64370B1645DB02008A745A /* CustomTweetCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,7 +187,6 @@
 				0DE2E61A163CE44E0015ADC7 /* TSAppDelegate.m in Sources */,
 				0DE2E629163CE44E0015ADC7 /* TSMasterViewController.m in Sources */,
 				0DE2E638163CECE70015ADC7 /* TSTweet.m in Sources */,
-				0D6437081645D923008A745A /* TSCustomTweetCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

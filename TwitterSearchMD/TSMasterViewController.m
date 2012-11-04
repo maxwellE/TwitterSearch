@@ -7,7 +7,7 @@
 //
 
 #import "TSMasterViewController.h"
-#import "TSCustomTweetCell.h"
+
 
 
 @interface TSMasterViewController () {
@@ -41,6 +41,12 @@ shouldReloadTableForSearchString:(NSString *)searchString
     return YES;
 }
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)localSearchBar{
+    if(self.savedSearchTerm){
+        localSearchBar.text = self.savedSearchTerm;
+    }
+
+}
 -(void)searchBarSearchButtonClicked:(UISearchBar *)localsearchBar{
     [_objects removeAllObjects];
     [self.tableView reloadData];
@@ -107,6 +113,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
     [errorView show];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
+
 }
 
 
@@ -124,7 +131,8 @@ shouldReloadTableForSearchString:(NSString *)searchString
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
+    TSTweet *test = [[TSTweet alloc]initWithPosterContentAndProfileURL:@"Maxwell" Content:@"TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST" ProfileURL:@""];
+    [self insertNewObject:test];
     if ([self savedSearchTerm])
     {
         [[[self searchDisplayController] searchBar] setText:[self savedSearchTerm]];
@@ -143,7 +151,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    _objects = nil;
 }
 
 - (void)insertNewObject:(TSTweet *)tweet
@@ -189,22 +197,16 @@ shouldReloadTableForSearchString:(NSString *)searchString
         tweetAuthor = [[_objects objectAtIndex:row]poster];
     }
 	
-    static NSString *CellIdentifier = @"CustomTweetCell";
+    static NSString *CellIdentifier = @"Cell";
 	
-    TSCustomTweetCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
-        NSArray *topLevelObjects = [[NSBundle mainBundle]loadNibNamed:@"CustomTweetCell" owner:nil options:nil];
-        for (id currentObject in topLevelObjects) {
-            if ([currentObject isKindOfClass:[UITableViewCell class]]) {
-                cell = (TSCustomTweetCell *)currentObject;
-                break;
-            }
-        }
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-	
-    cell.tweetText.text = tweetText;
-    cell.tweetAuthor.text = tweetAuthor;
+	cell.textLabel.text = tweetText;
+    cell.detailTextLabel.text = tweetAuthor;
 	
     return cell;
 }
@@ -236,19 +238,21 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 //##### INFINITE SCROLL
  -(void)refreshView:(UIRefreshControl *)refresh {
-          refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pulling data from Twitter..."];
-         NSLog(@"REFRESH");
          NSURL *url = [NSURL URLWithString:[TSTweet getNextTwitterTweetLink]];
          NSURLRequest *request = [NSURLRequest requestWithURL:url];
-         [[NSURLConnection alloc] initWithRequest:request delegate:self];
+         NSURLConnection *res = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+     if(res.originalRequest.HTTPBody){
           NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
           [formatter setDateFormat:@"MMM d, h:mm a"];
           NSString *lastUpdated = [NSString stringWithFormat:@"Last updated on %@",
           [formatter stringFromDate:[NSDate date]]];
           refresh.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
-          [refresh endRefreshing];
+          
          [self.tableView reloadData];
-         NSLog(@"DONE REFRESH");
+     }
+     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to refresh"];
+
+     [refresh endRefreshing];
 }
 //######################
 @end
