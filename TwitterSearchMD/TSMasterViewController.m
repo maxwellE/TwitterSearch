@@ -7,7 +7,7 @@
 //
 
 #import "TSMasterViewController.h"
-
+#import "TSCustomTweetCell.h"
 
 
 @interface TSMasterViewController () {
@@ -177,22 +177,34 @@ shouldReloadTableForSearchString:(NSString *)searchString
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = [indexPath row];
-    NSString *contentForThisRow = nil;
+    NSString *tweetText = nil;
+    NSString *tweetAuthor = nil;
 	
-    if (tableView == [[self searchDisplayController] searchResultsTableView])
-        contentForThisRow = [[[self searchResults] objectAtIndex:row]content];
-    else
-        contentForThisRow = [[_objects objectAtIndex:row]content];
-	
-    static NSString *CellIdentifier = @"CellIdentifier";
-	
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    if (tableView == [[self searchDisplayController] searchResultsTableView]){
+        tweetText = [[[self searchResults] objectAtIndex:row]content];
+        tweetAuthor = [[[self searchResults] objectAtIndex:row]poster];
+    }
+    else{
+        tweetText = [[_objects objectAtIndex:row]content];
+        tweetAuthor = [[_objects objectAtIndex:row]poster];
     }
 	
-    [[cell textLabel] setText:contentForThisRow];
+    static NSString *CellIdentifier = @"CustomTweetCell";
+	
+    TSCustomTweetCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil)
+    {
+        NSArray *topLevelObjects = [[NSBundle mainBundle]loadNibNamed:@"CustomTweetCell" owner:nil options:nil];
+        for (id currentObject in topLevelObjects) {
+            if ([currentObject isKindOfClass:[UITableViewCell class]]) {
+                cell = (TSCustomTweetCell *)currentObject;
+                break;
+            }
+        }
+    }
+	
+    cell.tweetText.text = tweetText;
+    cell.tweetAuthor.text = tweetAuthor;
 	
     return cell;
 }
@@ -222,7 +234,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
 {
 
 }
-//##### INFINATE SCROLL
+//##### INFINITE SCROLL
  -(void)refreshView:(UIRefreshControl *)refresh {
           refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pulling data from Twitter..."];
          NSLog(@"REFRESH");
