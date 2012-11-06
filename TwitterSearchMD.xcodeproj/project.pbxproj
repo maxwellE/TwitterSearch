@@ -22,6 +22,7 @@
 		0DE2E620163CE44E0015ADC7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DE2E61F163CE44E0015ADC7 /* Default-568h@2x.png */; };
 		0DE2E623163CE44E0015ADC7 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DE2E621163CE44E0015ADC7 /* MainStoryboard_iPhone.storyboard */; };
 		0DE2E629163CE44E0015ADC7 /* TSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE2E628163CE44E0015ADC7 /* TSMasterViewController.m */; };
+		0DF8017F16497C8200D49027 /* TwitterSearchMD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0DF8017D16497C8200D49027 /* TwitterSearchMD.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		0DE2E622163CE44E0015ADC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		0DE2E627163CE44E0015ADC7 /* TSMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSMasterViewController.h; sourceTree = "<group>"; };
 		0DE2E628163CE44E0015ADC7 /* TSMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSMasterViewController.m; sourceTree = "<group>"; };
+		0DF8017E16497C8200D49027 /* TwitterSearchMD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TwitterSearchMD.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		0DE2E60F163CE44E0015ADC7 /* TwitterSearchMD */ = {
 			isa = PBXGroup;
 			children = (
+				0DF8017D16497C8200D49027 /* TwitterSearchMD.xcdatamodeld */,
 				0D6D656B1648A27B00636F59 /* Tweet.h */,
 				0D6D656C1648A27B00636F59 /* Tweet.m */,
 				0DE2E618163CE44E0015ADC7 /* TSAppDelegate.h */,
@@ -197,6 +200,7 @@
 				0DE2E629163CE44E0015ADC7 /* TSMasterViewController.m in Sources */,
 				0D0388A91648474800BF1B6C /* TSCustomCell.m in Sources */,
 				0D6D656D1648A27B00636F59 /* Tweet.m in Sources */,
+				0DF8017F16497C8200D49027 /* TwitterSearchMD.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +322,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0DF8017D16497C8200D49027 /* TwitterSearchMD.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0DF8017E16497C8200D49027 /* TwitterSearchMD.xcdatamodel */,
+			);
+			currentVersion = 0DF8017E16497C8200D49027 /* TwitterSearchMD.xcdatamodel */;
+			name = TwitterSearchMD.xcdatamodeld;
+			path = ../../../Documents/TwitterSearchMD/TwitterSearchMD/TwitterSearchMD.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0DE2E5FC163CE44E0015ADC7 /* Project object */;
 }

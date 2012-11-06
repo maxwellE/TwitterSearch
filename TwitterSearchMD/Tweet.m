@@ -14,12 +14,12 @@ static NSString *nexturl;
 @synthesize tweetPoster;
 @synthesize tweetPosterImageUrl;
 @synthesize tweetText;
--(id)initWithPosterContentAndProfileURL:(NSString *)TweetPoster Content:(NSString *)TweetContent ProfileURL:(NSString*)profileURL{
+-(id)initWithPosterContentAndProfileURL:(NSString *)TweetPoster Content:(NSString *)TweetContent ProfileURL:(NSString*)ProfileURL{
     self  = [super init];
     if (self){
         self.tweetText = TweetContent;
-        self.tweetPosterImageUrl = TweetPoster;
-        self.tweetPoster = profileURL;
+        self.tweetPosterImageUrl = ProfileURL;
+        self.tweetPoster = TweetPoster;
     }
     return self;
 }
