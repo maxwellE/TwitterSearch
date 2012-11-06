@@ -1,24 +1,21 @@
 //
-//  TSTweet.h
-//  TwitterSearch
+//  Tweet.h
+//  TwitterSearchMD
 //
-//  Created by Maxwell Elliott on 10/27/12.
+//  Created by Maxwell Elliott on 11/5/12.
 //  Copyright (c) 2012 Maxwell Elliott. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+//#import <CoreData/CoreData.h>
 
-@interface TSTweet : NSObject
-{
-    NSString *content;
-    NSString *poster;
-    NSString *profile_url;
-}
+@interface Tweet : NSObject//NSManagedObject
 
-@property (retain) NSString *content;
-@property (retain) NSString *poster;
-@property (retain) NSString *profile_url;
 + (NSString *)getNextTwitterTweetLink;
 +(void)setNextTwitterTweetLink:(NSString *)link;
+
+@property (nonatomic, retain) NSString * tweetPoster;
+@property (nonatomic, retain) NSString * tweetPosterImageUrl;
+@property (nonatomic, retain) NSString * tweetText;
 -(id)initWithPosterContentAndProfileURL:(NSString *)TweetPoster Content:(NSString *)TweetContent ProfileURL:(NSString*)profileURL;
 @end

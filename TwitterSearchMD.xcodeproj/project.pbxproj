@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D0388A6164840D400BF1B6C /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D0388A5164840D400BF1B6C /* CustomCell.xib */; };
+		0D0388A91648474800BF1B6C /* TSCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0388A81648474800BF1B6C /* TSCustomCell.m */; };
+		0D6D656D1648A27B00636F59 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D6D656C1648A27B00636F59 /* Tweet.m */; };
+		0D6D656F1648A42D00636F59 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D6D656E1648A42D00636F59 /* CoreData.framework */; };
 		0DE2E60A163CE44E0015ADC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE2E609163CE44E0015ADC7 /* UIKit.framework */; };
 		0DE2E60C163CE44E0015ADC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE2E60B163CE44E0015ADC7 /* Foundation.framework */; };
 		0DE2E60E163CE44E0015ADC7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE2E60D163CE44E0015ADC7 /* CoreGraphics.framework */; };
@@ -17,12 +21,16 @@
 		0DE2E61E163CE44E0015ADC7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DE2E61D163CE44E0015ADC7 /* Default@2x.png */; };
 		0DE2E620163CE44E0015ADC7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DE2E61F163CE44E0015ADC7 /* Default-568h@2x.png */; };
 		0DE2E623163CE44E0015ADC7 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DE2E621163CE44E0015ADC7 /* MainStoryboard_iPhone.storyboard */; };
-		0DE2E626163CE44E0015ADC7 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DE2E624163CE44E0015ADC7 /* MainStoryboard_iPad.storyboard */; };
 		0DE2E629163CE44E0015ADC7 /* TSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE2E628163CE44E0015ADC7 /* TSMasterViewController.m */; };
-		0DE2E638163CECE70015ADC7 /* TSTweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE2E636163CECE70015ADC7 /* TSTweet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D0388A5164840D400BF1B6C /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		0D0388A71648474800BF1B6C /* TSCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCustomCell.h; sourceTree = "<group>"; };
+		0D0388A81648474800BF1B6C /* TSCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCustomCell.m; sourceTree = "<group>"; };
+		0D6D656B1648A27B00636F59 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
+		0D6D656C1648A27B00636F59 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
+		0D6D656E1648A42D00636F59 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0DE2E605163CE44E0015ADC7 /* TwitterSearchMD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterSearchMD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE2E609163CE44E0015ADC7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0DE2E60B163CE44E0015ADC7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -37,11 +45,8 @@
 		0DE2E61D163CE44E0015ADC7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		0DE2E61F163CE44E0015ADC7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		0DE2E622163CE44E0015ADC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
-		0DE2E625163CE44E0015ADC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		0DE2E627163CE44E0015ADC7 /* TSMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSMasterViewController.h; sourceTree = "<group>"; };
 		0DE2E628163CE44E0015ADC7 /* TSMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSMasterViewController.m; sourceTree = "<group>"; };
-		0DE2E636163CECE70015ADC7 /* TSTweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTweet.m; sourceTree = "<group>"; };
-		0DE2E637163CECE70015ADC7 /* TSTweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTweet.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D6D656F1648A42D00636F59 /* CoreData.framework in Frameworks */,
 				0DE2E60A163CE44E0015ADC7 /* UIKit.framework in Frameworks */,
 				0DE2E60C163CE44E0015ADC7 /* Foundation.framework in Frameworks */,
 				0DE2E60E163CE44E0015ADC7 /* CoreGraphics.framework in Frameworks */,
@@ -78,6 +84,7 @@
 		0DE2E608163CE44E0015ADC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D6D656E1648A42D00636F59 /* CoreData.framework */,
 				0DE2E609163CE44E0015ADC7 /* UIKit.framework */,
 				0DE2E60B163CE44E0015ADC7 /* Foundation.framework */,
 				0DE2E60D163CE44E0015ADC7 /* CoreGraphics.framework */,
@@ -88,14 +95,16 @@
 		0DE2E60F163CE44E0015ADC7 /* TwitterSearchMD */ = {
 			isa = PBXGroup;
 			children = (
+				0D6D656B1648A27B00636F59 /* Tweet.h */,
+				0D6D656C1648A27B00636F59 /* Tweet.m */,
 				0DE2E618163CE44E0015ADC7 /* TSAppDelegate.h */,
-				0DE2E636163CECE70015ADC7 /* TSTweet.m */,
-				0DE2E637163CECE70015ADC7 /* TSTweet.h */,
 				0DE2E619163CE44E0015ADC7 /* TSAppDelegate.m */,
 				0DE2E621163CE44E0015ADC7 /* MainStoryboard_iPhone.storyboard */,
-				0DE2E624163CE44E0015ADC7 /* MainStoryboard_iPad.storyboard */,
 				0DE2E627163CE44E0015ADC7 /* TSMasterViewController.h */,
 				0DE2E628163CE44E0015ADC7 /* TSMasterViewController.m */,
+				0D0388A71648474800BF1B6C /* TSCustomCell.h */,
+				0D0388A81648474800BF1B6C /* TSCustomCell.m */,
+				0D0388A5164840D400BF1B6C /* CustomCell.xib */,
 				0DE2E610163CE44E0015ADC7 /* Supporting Files */,
 			);
 			path = TwitterSearchMD;
@@ -172,7 +181,7 @@
 				0DE2E61E163CE44E0015ADC7 /* Default@2x.png in Resources */,
 				0DE2E620163CE44E0015ADC7 /* Default-568h@2x.png in Resources */,
 				0DE2E623163CE44E0015ADC7 /* MainStoryboard_iPhone.storyboard in Resources */,
-				0DE2E626163CE44E0015ADC7 /* MainStoryboard_iPad.storyboard in Resources */,
+				0D0388A6164840D400BF1B6C /* CustomCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +195,8 @@
 				0DE2E616163CE44E0015ADC7 /* main.m in Sources */,
 				0DE2E61A163CE44E0015ADC7 /* TSAppDelegate.m in Sources */,
 				0DE2E629163CE44E0015ADC7 /* TSMasterViewController.m in Sources */,
-				0DE2E638163CECE70015ADC7 /* TSTweet.m in Sources */,
+				0D0388A91648474800BF1B6C /* TSCustomCell.m in Sources */,
+				0D6D656D1648A27B00636F59 /* Tweet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,14 +217,6 @@
 				0DE2E622163CE44E0015ADC7 /* en */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		0DE2E624163CE44E0015ADC7 /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0DE2E625163CE44E0015ADC7 /* en */,
-			);
-			name = MainStoryboard_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

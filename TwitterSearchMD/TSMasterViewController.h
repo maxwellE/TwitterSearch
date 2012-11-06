@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TSTweet.h"
+#import "Tweet.h"
 
 @interface TSMasterViewController : UITableViewController
 {
@@ -20,7 +20,7 @@
 @property (nonatomic, retain) NSMutableData *data;
 @property (nonatomic, copy) NSString *savedSearchTerm;
 @property (nonatomic, retain) NSString *last_page;
-
+@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 - (void)handleSearchForTerm:(NSString *)searchTerm;
 +(NSString*)encodeURL:(NSString *)string;
 

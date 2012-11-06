@@ -7,6 +7,7 @@
 //
 
 #import "TSMasterViewController.h"
+#import "TSCustomCell.h"
 
 
 
@@ -20,6 +21,7 @@
 @synthesize savedSearchTerm;
 @synthesize data;
 @synthesize last_page;
+@synthesize managedObjectContext;
 
 +(NSString*)encodeURL:(NSString *)string{
     NSString *newString = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
@@ -71,9 +73,9 @@ shouldReloadTableForSearchString:(NSString *)searchString
 	
     if ([[self savedSearchTerm] length] != 0)
     {
-        for (TSTweet *currentTweet in _objects)
+        for (Tweet *currentTweet in _objects)
         {
-            if ([[currentTweet content] rangeOfString:searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
+            if ([[currentTweet tweetText] rangeOfString:searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
             {
                 [[self searchResults] addObject:currentTweet];
             }
@@ -98,10 +100,10 @@ shouldReloadTableForSearchString:(NSString *)searchString
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:nil error:nil];
     NSString *next_search = [[NSString alloc] initWithFormat:@"http://search.twitter.com/search.json%@",[json objectForKey:@"next_page"]];
-    [TSTweet setNextTwitterTweetLink:next_search];
-    self.last_page = [TSTweet getNextTwitterTweetLink];
+    [Tweet setNextTwitterTweetLink:next_search];
+    self.last_page = [Tweet getNextTwitterTweetLink];
     for (NSDictionary *single_tweet in [json objectForKey:@"results"]) {
-        TSTweet *new_tweet = [[TSTweet alloc]initWithPosterContentAndProfileURL:[single_tweet objectForKey:@"from_user_name"] Content:[single_tweet objectForKey:@"text"] ProfileURL:[single_tweet objectForKey:@"profile_image_url"]];
+      Tweet *new_tweet = [[Tweet alloc]initWithPosterContentAndProfileURL:[single_tweet objectForKey:@"from_user_name"] Content:[single_tweet objectForKey:@"text"] ProfileURL:[single_tweet objectForKey:@"profile_image_url"]];
         [self insertNewObject:new_tweet];
     }
 }
@@ -131,8 +133,6 @@ shouldReloadTableForSearchString:(NSString *)searchString
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    TSTweet *test = [[TSTweet alloc]initWithPosterContentAndProfileURL:@"Maxwell" Content:@"TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST" ProfileURL:@""];
-    [self insertNewObject:test];
     if ([self savedSearchTerm])
     {
         [[[self searchDisplayController] searchBar] setText:[self savedSearchTerm]];
@@ -145,7 +145,6 @@ shouldReloadTableForSearchString:(NSString *)searchString
     [self.refreshControl addTarget:self
                         action:@selector(refreshView:)
                         forControlEvents:UIControlEventValueChanged];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -154,7 +153,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
     _objects = nil;
 }
 
-- (void)insertNewObject:(TSTweet *)tweet
+- (void)insertNewObject:(Tweet *)tweet
 {
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
@@ -189,26 +188,31 @@ shouldReloadTableForSearchString:(NSString *)searchString
     NSString *tweetAuthor = nil;
 	
     if (tableView == [[self searchDisplayController] searchResultsTableView]){
-        tweetText = [[[self searchResults] objectAtIndex:row]content];
-        tweetAuthor = [[[self searchResults] objectAtIndex:row]poster];
+        tweetText = [[[self searchResults] objectAtIndex:row]tweetText];
+        tweetAuthor = [[[self searchResults] objectAtIndex:row]tweetPoster];
     }
     else{
-        tweetText = [[_objects objectAtIndex:row]content];
-        tweetAuthor = [[_objects objectAtIndex:row]poster];
+        tweetText = [[_objects objectAtIndex:row]tweetText];
+        tweetAuthor = [[_objects objectAtIndex:row]tweetPoster];
     }
 	
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"CustomCell";
 	
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TSCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
         
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 	cell.textLabel.text = tweetText;
     cell.detailTextLabel.text = tweetAuthor;
 	
     return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 92;
 }
 
 /*
@@ -238,7 +242,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 //##### INFINITE SCROLL
  -(void)refreshView:(UIRefreshControl *)refresh {
-         NSURL *url = [NSURL URLWithString:[TSTweet getNextTwitterTweetLink]];
+         NSURL *url = [NSURL URLWithString:[Tweet getNextTwitterTweetLink]];
          NSURLRequest *request = [NSURLRequest requestWithURL:url];
          NSURLConnection *res = [[NSURLConnection alloc] initWithRequest:request delegate:self];
      if(res.originalRequest.HTTPBody){
