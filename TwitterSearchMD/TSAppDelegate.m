@@ -7,9 +7,9 @@
 //
 
 #import "TSAppDelegate.h"
-
 @implementation TSAppDelegate
-
+@synthesize databaseName;
+@synthesize databasePath;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
@@ -17,8 +17,29 @@
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
         splitViewController.delegate = (id)navigationController.topViewController;
+        self.databaseName = @"Tweets.db";
+        
+        NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentDir = [documentPaths objectAtIndex:0];
+        self.databasePath = [documentDir stringByAppendingPathComponent:self.databaseName];
+        
+        [self createAndCheckDatabase];
     }
     return YES;
+}
+
+-(void) createAndCheckDatabase
+{
+    BOOL success;
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    success = [fileManager fileExistsAtPath:databasePath];
+    
+    if(success) return;
+    
+    NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:self.databaseName];
+    
+    [fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:nil];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

@@ -7,9 +7,6 @@
 //
 
 #import "TSMasterViewController.h"
-#import "TSCustomCell.h"
-
-
 
 @interface TSMasterViewController () {
     NSMutableArray *_objects;
@@ -21,7 +18,6 @@
 @synthesize savedSearchTerm;
 @synthesize data;
 @synthesize last_page;
-@synthesize managedObjectContext;
 
 +(NSString*)encodeURL:(NSString *)string{
     NSString *newString = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
@@ -51,6 +47,8 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 -(void)searchBarSearchButtonClicked:(UISearchBar *)localsearchBar{
     [_objects removeAllObjects];
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+    [db destroyTweets];
     [self.tableView reloadData];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSString *fixed_search = [TSMasterViewController encodeURL:savedSearchTerm];
@@ -137,7 +135,9 @@ shouldReloadTableForSearchString:(NSString *)searchString
     {
         [[[self searchDisplayController] searchBar] setText:[self savedSearchTerm]];
     }
-       self.last_page = [[NSString alloc]init];
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+    _objects = [db getTweets];
+    self.last_page = [[NSString alloc]init];
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
     [refresh addTarget:self action:@selector(refreshView:)forControlEvents:UIControlEventValueChanged];
@@ -155,10 +155,9 @@ shouldReloadTableForSearchString:(NSString *)searchString
 
 - (void)insertNewObject:(Tweet *)tweet
 {
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
     [_objects insertObject:tweet atIndex:0];
+    [db insertTweet:tweet];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -243,6 +242,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
 //##### INFINITE SCROLL
  -(void)refreshView:(UIRefreshControl *)refresh {
          NSURL *url = [NSURL URLWithString:[Tweet getNextTwitterTweetLink]];
+     if(url){
          NSURLRequest *request = [NSURLRequest requestWithURL:url];
          NSURLConnection *res = [[NSURLConnection alloc] initWithRequest:request delegate:self];
      if(res.originalRequest.HTTPBody){
@@ -256,6 +256,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
      }
      refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to refresh"];
 
+         }
      [refresh endRefreshing];
 }
 //######################

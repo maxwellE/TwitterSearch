@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
-#import <CoreData/CoreData.h>
-
-@interface TSMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
-{
+#import "FMDBDataAccess.h"
+#import "TSCustomCell.h"
+@interface TSMasterViewController : UITableViewController {
     NSMutableArray *searchResults;
     NSString *savedSearchTerm;
     NSMutableData *data;
@@ -21,8 +20,7 @@
 @property (nonatomic, retain) NSMutableData *data;
 @property (nonatomic, copy) NSString *savedSearchTerm;
 @property (nonatomic, retain) NSString *last_page;
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
 - (void)handleSearchForTerm:(NSString *)searchTerm;
 +(NSString*)encodeURL:(NSString *)string;
 
