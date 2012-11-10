@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import <CoreData/CoreData.h>
 
-@interface Tweet : NSObject//NSManagedObject
+@interface Tweet : NSObject
 
 + (NSString *)getNextTwitterTweetLink;
 +(void)setNextTwitterTweetLink:(NSString *)link;

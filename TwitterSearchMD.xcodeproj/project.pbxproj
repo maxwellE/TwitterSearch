@@ -35,7 +35,6 @@
 		0D37FAD4164A139300A474FC /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		0D6D656B1648A27B00636F59 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
 		0D6D656C1648A27B00636F59 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
-		0D6D656E1648A42D00636F59 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0DCE768C164B609B00CC6C12 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = "../../../Downloads/fmdb-master/src/FMDatabase.h"; sourceTree = "<group>"; };
 		0DCE768D164B609B00CC6C12 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = "../../../Downloads/fmdb-master/src/FMDatabase.m"; sourceTree = "<group>"; };
 		0DCE768E164B609B00CC6C12 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = "../../../Downloads/fmdb-master/src/FMResultSet.h"; sourceTree = "<group>"; };
@@ -76,9 +75,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DC8934B164C1FC700F49462 /* Tweet */ = {
+			isa = PBXGroup;
+			children = (
+				0D6D656B1648A27B00636F59 /* Tweet.h */,
+				0D6D656C1648A27B00636F59 /* Tweet.m */,
+			);
+			name = Tweet;
+			sourceTree = "<group>";
+		};
 		0DCE769F164B7A8900CC6C12 /* FMDB */ = {
 			isa = PBXGroup;
 			children = (
+				0DCE7695164B667100CC6C12 /* FMDBDataAccess.h */,
+				0DCE7696164B667100CC6C12 /* FMDBDataAccess.m */,
 				0DCE768C164B609B00CC6C12 /* FMDatabase.h */,
 				0DCE768D164B609B00CC6C12 /* FMDatabase.m */,
 				0DCE768E164B609B00CC6C12 /* FMResultSet.h */,
@@ -118,7 +128,6 @@
 		0DE2E608163CE44E0015ADC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0D6D656E1648A42D00636F59 /* CoreData.framework */,
 				0DE2E609163CE44E0015ADC7 /* UIKit.framework */,
 				0DE2E60B163CE44E0015ADC7 /* Foundation.framework */,
 				0DE2E60D163CE44E0015ADC7 /* CoreGraphics.framework */,
@@ -129,9 +138,8 @@
 		0DE2E60F163CE44E0015ADC7 /* TwitterSearchMD */ = {
 			isa = PBXGroup;
 			children = (
+				0DC8934B164C1FC700F49462 /* Tweet */,
 				0DCE769F164B7A8900CC6C12 /* FMDB */,
-				0D6D656B1648A27B00636F59 /* Tweet.h */,
-				0D6D656C1648A27B00636F59 /* Tweet.m */,
 				0DE2E618163CE44E0015ADC7 /* TSAppDelegate.h */,
 				0DE2E619163CE44E0015ADC7 /* TSAppDelegate.m */,
 				0DE2E621163CE44E0015ADC7 /* MainStoryboard_iPhone.storyboard */,
@@ -139,8 +147,6 @@
 				0DE2E628163CE44E0015ADC7 /* TSMasterViewController.m */,
 				0DCE76A0164B7AA900CC6C12 /* CustomCell */,
 				0DE2E610163CE44E0015ADC7 /* Supporting Files */,
-				0DCE7695164B667100CC6C12 /* FMDBDataAccess.h */,
-				0DCE7696164B667100CC6C12 /* FMDBDataAccess.m */,
 			);
 			path = TwitterSearchMD;
 			sourceTree = "<group>";

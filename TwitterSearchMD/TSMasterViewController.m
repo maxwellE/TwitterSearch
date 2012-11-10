@@ -15,9 +15,7 @@
 
 @implementation TSMasterViewController
 @synthesize searchResults;
-@synthesize savedSearchTerm;
 @synthesize data;
-@synthesize last_page;
 
 +(NSString*)encodeURL:(NSString *)string{
     NSString *newString = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
@@ -40,10 +38,8 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)localSearchBar{
-    if(self.savedSearchTerm){
-        localSearchBar.text = self.savedSearchTerm;
-    }
-
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        localSearchBar.text = [defaults objectForKey:@"last_search"];
 }
 -(void)searchBarSearchButtonClicked:(UISearchBar *)localsearchBar{
     [_objects removeAllObjects];
@@ -51,7 +47,8 @@ shouldReloadTableForSearchString:(NSString *)searchString
     [db destroyTweets];
     [self.tableView reloadData];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSString *fixed_search = [TSMasterViewController encodeURL:savedSearchTerm];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *fixed_search = [TSMasterViewController encodeURL:[defaults objectForKey:@"last_search"]];
     NSString *urlstr = [[NSString alloc]initWithFormat:@"http://search.twitter.com/search.json?q=%@",fixed_search];
     NSURL *url = [NSURL URLWithString:urlstr];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -60,7 +57,8 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 - (void)handleSearchForTerm:(NSString *)searchTerm
 {
-    [self setSavedSearchTerm:searchTerm];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:searchTerm forKey:@"last_search"];
 	
     if ([self searchResults] == nil)
     {
@@ -69,7 +67,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
 	
     [[self searchResults] removeAllObjects];
 	
-    if ([[self savedSearchTerm] length] != 0)
+    if ([searchTerm length] != 0)
     {
         for (Tweet *currentTweet in _objects)
         {
@@ -97,11 +95,12 @@ shouldReloadTableForSearchString:(NSString *)searchString
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:nil error:nil];
-    NSString *next_search = [[NSString alloc] initWithFormat:@"http://search.twitter.com/search.json%@",[json objectForKey:@"next_page"]];
-    [Tweet setNextTwitterTweetLink:next_search];
-    self.last_page = [Tweet getNextTwitterTweetLink];
+    NSString *next_page = [[NSString alloc] initWithFormat:@"http://search.twitter.com/search.json%@",[json objectForKey:@"next_page"]];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:next_page forKey:@"next_page"];
+    [defaults synchronize];
     for (NSDictionary *single_tweet in [json objectForKey:@"results"]) {
-      Tweet *new_tweet = [[Tweet alloc]initWithPosterContentAndProfileURL:[single_tweet objectForKey:@"from_user_name"] Content:[single_tweet objectForKey:@"text"] ProfileURL:[single_tweet objectForKey:@"profile_image_url"]];
+      Tweet *new_tweet = [[Tweet alloc]initWithPosterContentAndProfileURL:[single_tweet objectForKey:@"from_user"] Content:[single_tweet objectForKey:@"text"] ProfileURL:[single_tweet objectForKey:@"profile_image_url"]];
         [self insertNewObject:new_tweet];
     }
 }
@@ -131,15 +130,11 @@ shouldReloadTableForSearchString:(NSString *)searchString
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    if ([self savedSearchTerm])
-    {
-        [[[self searchDisplayController] searchBar] setText:[self savedSearchTerm]];
-    }
+
     FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
     _objects = [db getTweets];
-    self.last_page = [[NSString alloc]init];
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Load More Tweets"];
     [refresh addTarget:self action:@selector(refreshView:)forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
     [self.refreshControl addTarget:self
@@ -241,7 +236,9 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 //##### INFINITE SCROLL
  -(void)refreshView:(UIRefreshControl *)refresh {
-         NSURL *url = [NSURL URLWithString:[Tweet getNextTwitterTweetLink]];
+     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+         NSURL *url = [NSURL URLWithString:[defaults objectForKey:@"next_page"]];
      if(url){
          NSURLRequest *request = [NSURLRequest requestWithURL:url];
          NSURLConnection *res = [[NSURLConnection alloc] initWithRequest:request delegate:self];
